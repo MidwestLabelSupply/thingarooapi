@@ -12,8 +12,8 @@ const PORT = process.env.PORT || 8080;
 
 const corsOptions = {
   origin: [
-    "https://qr-dan-admin-vivekkm897.vercel.app",
-    "https://qr-dan-verify-vivekkm897.vercel.app",
+    "https://admin.thingaroo.com",
+    "https://verify.thingaroo.com"
   ],
   optionsSuccessStatus: 200,
 };
