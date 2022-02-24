@@ -23,7 +23,7 @@ app.use(cors(corsOptions));
 // Connect to the Database
 mongoose.connect(
   process.env.MONGODB_URI ||
-    "mongodb+srv://vivek:vivek123@cluster0.lktd0.mongodb.net/myFirstDatabase-dev?retryWrites=true&w=majority"
+    "mongodb://root:rootpassword@localhost:27017"
 );
 mongoose.connection.on("connected", () => {
   console.log("Mongoose is connected!!!!");
@@ -90,6 +90,5 @@ app.post("/api/fileUpload", verifyToken, uploadFile, (req, res) => {
 });
 app.use("/admin", require("./routes/admin"));
 app.use("/order", require("./routes/order"));
-app.use("/order-detail", require("./routes/orderDetail"));
 
 app.listen(PORT, console.log(`Server is starting at "${PORT}"`));

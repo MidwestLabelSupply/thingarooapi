@@ -13,13 +13,11 @@ const OrderSchema = new Schema(
     },
     quantity: {
       type: Number,
+      required: true
     },
-    limitedEdition: {
-      type: Boolean,
-    },
-    content: {
-      type: String,
-    },
+    templateId: {
+      type: String
+    }
   },
   { timestamps: true }
 );
