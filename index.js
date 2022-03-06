@@ -28,6 +28,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(cors(corsOptions));
 
 // Connect to the Database
+console.log(process.env.MONGODB_URI)
 mongoose.connect(
   process.env.MONGODB_URI ||
     "mongodb://root:rootpassword@localhost:27017"
