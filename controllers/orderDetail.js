@@ -1,25 +1,26 @@
 const Order = require("../models/order");
 const OrderDetail = require("../models/orderDetail");
 const ProcessHistory = require('../models/templates/processHistory');
+const { validateUserToken } = require("../CustomerAuthCheck");
 
 
 async function addOrderDetail(req, res) {
-  const { _id, unit, content, imageUrl } = req.body;
+  const { _id, unit, content, imageUrl, dateTime } = req.body;
 
   try {
     const orderDetail = await OrderDetail.findOne({ _id });
     if (!orderDetail) return res.status(400).send({ msg: "Order Not Found." });
-    
-    const  { notes, isCompleted } = orderDetail.templateUnits[unit - 1];
+
+    const { notes, isCompleted } = orderDetail.templateUnits[unit - 1];
     const processHistory = new ProcessHistory(notes);
-    processHistory.addNote(content, imageUrl);
+    processHistory.addNote(content, imageUrl, dateTime);
 
     orderDetail.templateUnits[unit - 1] = processHistory;
     orderDetail.markModified('templateUnits');  // to let mongo know this has changed, as mongo doesn't detech by default.
 
     const updatedOrderDetail = await orderDetail.save();
 
-    
+
     return res.status(201).send({
       msg: "OrderDetail Successfully Added.",
       newOrderDetail: updatedOrderDetail,
@@ -32,19 +33,21 @@ async function addOrderDetail(req, res) {
 
 async function getOrderDetail(req, res) {
   try {
-    const { _id, unit } = req.body;
-    console.log(_id, unit);
-
+    const { _id, unit } = await validateUserToken(req.params.token);
     const orderDetail = await OrderDetail.findOne({ _id });
+    const order =  await Order.findOne({_id});
 
-    if (!orderDetail || unit === undefined)
+    if (!orderDetail || unit === undefined || !order)
       return res.status(400).send({ msg: "Order Detail Not Found." });
 
     const { notes } = orderDetail.templateUnits[unit - 1] || null;
-    console.log({...notes[0]});
-    res.render('test.html', { ...notes[0] })
+    res.render('history.html', { 
+      unitNumber: unit,  
+      notes, 
+      productThumbnail: "https://media.istockphoto.com/vectors/male-hand-holding-glass-beer-and-antique-pocket-watch-vector-id698271744?s=612x612",
+      productName: order.productName
+    })
   } catch (err) {
-    console.log(err)
     return res.status(500).send({ msg: "Internal server error!", err });
   }
 }

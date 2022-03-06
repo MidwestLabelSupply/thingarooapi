@@ -21,7 +21,8 @@ const corsOptions = {
 
 app.engine('html', mustache());
 app.set('view engine', 'html');
-app.set('views', __dirname + '/views');
+app.set('views', __dirname + '/templates');
+app.use(express.static(path.join(__dirname, 'public')));
 
 
 app.use(cors(corsOptions));

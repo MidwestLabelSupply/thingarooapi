@@ -2,21 +2,20 @@ const express = require("express");
 const router = express.Router();
 
 const verifyToken = require("../AuthCheck");
-const verifyCustomerToken = require("../CustomerAuthCheck");
+const { verifyCustomerTokenMiddleware } = require("../CustomerAuthCheck");
 const validMongoDocument = require("../ValidMongoDocument");
 const orderDetail = require("../controllers/orderDetail");
 
 
 // router.post("/generate-url", verifyToken, validMongoDocument, orderDetail.generateUrls);
 
-router.post("/add", verifyCustomerToken, validMongoDocument, orderDetail.addOrderDetail);
+router.post("/add", verifyCustomerTokenMiddleware, validMongoDocument, orderDetail.addOrderDetail);
 
 // router.post("/", verifyToken, validMongoDocument, orderDetail.getOrderDetails);
 
 // router.post("/admin", verifyToken, validMongoDocument, orderDetail.getOrderDetail);
 router.get(
-  "/customer",
-  verifyCustomerToken,
+  "/customer/:token",
   validMongoDocument,
   orderDetail.getOrderDetail
 );

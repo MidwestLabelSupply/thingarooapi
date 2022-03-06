@@ -1,6 +1,6 @@
 class Note {
-  constructor(content, imageUrl=null) {
-      this.date = new Date();
+  constructor(content, imageUrl=null, date) {
+      this.date = date;
       this.content = content;
       this.imageUrl = imageUrl;
   }
@@ -12,8 +12,8 @@ class ProcessHistory {
     this.isCompleted = isCompleted;
   }
 
-  addNote(content, imageUrl=null) {
-    this.notes.push(new Note(content, imageUrl));
+  addNote(content, imageUrl=null, date) {
+    this.notes.push(new Note(content, imageUrl, date));
   }
 }
 
