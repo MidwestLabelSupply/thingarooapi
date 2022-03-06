@@ -31,7 +31,7 @@ app.use(cors(corsOptions));
 console.log(process.env.MONGODB_URI)
 mongoose.connect(
   process.env.MONGODB_URI ||
-    "mongodb+srv://admin:lG4cxXkupCg2IH86@cluster0.znaqa.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
+  "mongodb+srv://admin:lG4cxXkupCg2IH86@cluster0.znaqa.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
 );
 mongoose.connection.on("connected", () => {
   console.log("Mongoose is connected!!!!");
