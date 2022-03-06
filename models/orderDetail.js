@@ -4,7 +4,7 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 const OrderDetailSchema = new Schema(
   {
-   templateUnits: Schema.Types.Mixed
+   templateUnits: Schema.Types.Mixed,
   }
 );
 

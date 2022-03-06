@@ -6,6 +6,7 @@ const datauri = require("datauri/parser");
 const multer = require("multer");
 const path = require("path");
 const verifyToken = require("./AuthCheck");
+const mustache = require('mustache-express');
 
 const app = express();
 const PORT = process.env.PORT || 8080;
@@ -17,6 +18,11 @@ const corsOptions = {
   ],
   optionsSuccessStatus: 200,
 };
+
+app.engine('html', mustache());
+app.set('view engine', 'html');
+app.set('views', __dirname + '/views');
+
 
 app.use(cors(corsOptions));
 
@@ -90,5 +96,6 @@ app.post("/api/fileUpload", verifyToken, uploadFile, (req, res) => {
 });
 app.use("/admin", require("./routes/admin"));
 app.use("/order", require("./routes/order"));
+app.use("/order-detail", require("./routes/orderDetail"));
 
 app.listen(PORT, console.log(`Server is starting at "${PORT}"`));

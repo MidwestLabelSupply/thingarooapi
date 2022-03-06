@@ -7,11 +7,11 @@ const validMongoDocument = require("../ValidMongoDocument");
 const orderDetail = require("../controllers/orderDetail");
 
 
-router.post("/generate-url", verifyToken, validMongoDocument, orderDetail.generateUrls);
+// router.post("/generate-url", verifyToken, validMongoDocument, orderDetail.generateUrls);
 
 router.post("/add", verifyCustomerToken, validMongoDocument, orderDetail.addOrderDetail);
 
-router.post("/", verifyToken, validMongoDocument, orderDetail.getOrderDetails);
+// router.post("/", verifyToken, validMongoDocument, orderDetail.getOrderDetails);
 
 // router.post("/admin", verifyToken, validMongoDocument, orderDetail.getOrderDetail);
 router.get(
@@ -21,6 +21,6 @@ router.get(
   orderDetail.getOrderDetail
 );
 
-router.put("/update", verifyToken, validMongoDocument, orderDetail.updateOrderDetail);
+// router.put("/update", verifyToken, validMongoDocument, orderDetail.updateOrderDetail);
 
 module.exports = router;

@@ -7,8 +7,9 @@ class Note {
 }
 
 class ProcessHistory {
-  constructor() {
-    this.notes = [new Note("cool")]
+  constructor(notes=[], isCompleted=false) {
+    this.notes = notes.map(note => new Note(note.content, note.imageUrl))
+    this.isCompleted = isCompleted;
   }
 
   addNote(content, imageUrl=null) {
@@ -16,4 +17,4 @@ class ProcessHistory {
   }
 }
 
-module.exports = ProcessHistory;
+module.exports =  ProcessHistory;
