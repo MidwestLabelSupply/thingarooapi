@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/2.3.0/mustache.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js" integrity="sha512-AA1Bzp5Q0K1KanKKmvN/4d3IRKVlv9PYgwFPvm32nPO6QS8yH1HO7LbgB1pgiOxPtfeg5zEn2ba64MUcqJx6CA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,300;0,500;0,700;0,900;1,100;1,300;1,500;1,900&display=swap" rel="stylesheet"> 
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <link href="../static/css/history.css" rel="stylesheet">
+  <title>{{productName}} - History</title>
+</head>
+<body>
+  <script id="test" type="text/template">
+    <div class="container-fluid">
+      <div class="mt-1 mb-1">
+        <img src="../static/images/logo.png"/>
+      </div>
+      <div>
+        <div>
+          <div class="m-2 d-flex flex-column align-items-center justify-content-center">
+            <div class="product-title-wrapper">
+              <div class="product-title font-weight-bold">{{productName}}</div>
+              <div class="unit font-weight-light text-muted">Unit #{{unitNumber}}</div>
+            </div>
+            <img class="img-thumbnail" src="../static/images/{{productThumbnail}}" width="80%"/>
+          </div>
+        </div>
+        <div class="mt-2">
+          <div class="text-center   history-title">
+            History:
+          </div>
+          {{#notes}}
+            <div class="row note-wrapper">
+              <div class="text-muted note-date-time">
+                {{dateTime}}
+              </div>
+              <div class="note">
+                {{content}}
+              </div>
+            </div>
+          {{/notes}}
+          <div class="row block"></div>
+        </div>
+        <div class="rounded history-buttom" onclick="addNoteAction()">
+          <span class="text">Add note</span>
+        </div>
+      </div>
+    </div>
+  </script>
+
+  <script>
+    const html = Mustache.to_html($('#test').html(), {
+      productName: "Lucas' Craft Beer",
+      unitNumber: 2,
+      productThumbnail: "test-photo.jpeg",
+      notes: [
+        { 
+          dateTime: (new Date()).toLocaleString([], { dateStyle: 'long', timeStyle: 'short' }),
+          content: "This is my first note!"
+        },
+        { 
+          dateTime: (new Date()).toLocaleString([], { dateStyle: 'long', timeStyle: 'short' }),
+          content: "This is my second note!"
+        },
+        { 
+          dateTime: (new Date()).toLocaleString([], { dateStyle: 'long', timeStyle: 'short' }),
+          content: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
+        }
+      ]
+    });
+    $('body').html(html);
+
+    function addNoteAction() {
+      swal({
+        text: 'Add new product note:',
+        content: "input",
+        button: {
+          text: "Done",
+          closeModal: false,
+        },
+      })
+      .then(text => {
+        if (!text) throw null;
+        // Todo: Make post request here
+        const dateTime = (new Date()).toLocaleString([], { dateStyle: 'long', timeStyle: 'short' });
+        const reqBody = {
+          text,
+          dateTime
+        }
+        return fetch('bla', reqBody);
+      })
+      .then(results => {
+        return results.json();
+      })
+      .then(json => {
+        // handle error here
+        const error = false;
+        if (error) {
+          return swal("Oh noes!", "Failed to add note", "error");
+        }
+      
+        swal("Success!", "Note added!", "success");
+      })
+      .catch(err => {
+        if (err) {
+          swal("Oh noes!", "Failed to add note", "error");
+        } else {
+          swal.stopLoading();
+          swal.close();
+        }
+      });
+    }
+  </script>
+</body>
+</html>
