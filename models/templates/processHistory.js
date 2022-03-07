@@ -8,7 +8,7 @@ class Note {
 
 class ProcessHistory {
   constructor(notes=[], isCompleted=false) {
-    this.notes = notes.map(note => new Note(note.content, note.imageUrl))
+    this.notes = notes.map(note => new Note(note.content, note.imageUrl, note.date))
     this.isCompleted = isCompleted;
   }
 

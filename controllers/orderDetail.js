@@ -2,6 +2,7 @@ const Order = require("../models/order");
 const OrderDetail = require("../models/orderDetail");
 const ProcessHistory = require('../models/templates/processHistory');
 const { validateUserToken } = require("../CustomerAuthCheck");
+const mongoose = require("mongoose");
 
 
 async function addOrderDetail(req, res) {
@@ -26,7 +27,6 @@ async function addOrderDetail(req, res) {
       newOrderDetail: updatedOrderDetail,
     });
   } catch (err) {
-    console.log(err)
     return res.status(500).send({ msg: "Internal server error!", err });
   }
 }
@@ -34,6 +34,7 @@ async function addOrderDetail(req, res) {
 async function getOrderDetail(req, res) {
   try {
     const { _id, unit } = await validateUserToken(req.params.token);
+    if (!mongoose.isValidObjectId(req.body._id)) return res.status(404).send({ msg: "Not found :( !" });
     const orderDetail = await OrderDetail.findOne({ _id });
     const order =  await Order.findOne({_id});
 
