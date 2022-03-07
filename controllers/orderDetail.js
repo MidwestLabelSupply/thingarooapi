@@ -34,7 +34,7 @@ async function addOrderDetail(req, res) {
 async function getOrderDetail(req, res) {
   try {
     const { _id, unit } = await validateUserToken(req.params.token);
-    if (!mongoose.isValidObjectId(req.body._id)) return res.status(404).send({ msg: "Not found :( !" });
+    if (!mongoose.isValidObjectId(_id)) return res.status(404).send({ msg: "Not found :( !" });
     const orderDetail = await OrderDetail.findOne({ _id });
     const order =  await Order.findOne({_id});
 
