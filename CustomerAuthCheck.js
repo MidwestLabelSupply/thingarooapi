@@ -17,7 +17,6 @@ function verifyCustomerTokenMiddleware(req, res, next) {
   const [bearer, customerToken] = req.headers.authorization
     ? req.headers.authorization.split(" ")
     : [];
-    console.log(bearer, customerToken, req.headers.authorization)
 
   if (bearer !== "Bearer" || !customerToken) {
     return res.status(401).send({ msg: "bad credentials provided." });

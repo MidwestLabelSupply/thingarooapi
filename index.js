@@ -28,10 +28,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(cors(corsOptions));
 
 // Connect to the Database
-console.log(process.env.MONGODB_URI)
 mongoose.connect(
   process.env.MONGODB_URI ||
-  "mongodb+srv://admin:lG4cxXkupCg2IH86@cluster0.znaqa.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
+    "mongodb://root:rootpassword@localhost:27017"
 );
 mongoose.connection.on("connected", () => {
   console.log("Mongoose is connected!!!!");
