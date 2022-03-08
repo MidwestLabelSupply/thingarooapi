@@ -30,7 +30,7 @@ function customerAuthMiddleware(req, res, next) {
     next();
 
   })
-    .catch(() => {
+    .catch((err) => {
       return res.status(401).send({ msg: "bad credentials provided." });
     });
 
