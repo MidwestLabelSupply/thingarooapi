@@ -6,6 +6,7 @@ const datauri = require("datauri/parser");
 const multer = require("multer");
 const path = require("path");
 const verifyToken = require("./AuthCheck");
+const mustache = require('mustache-express');
 
 const app = express();
 const PORT = process.env.PORT || 8080;
@@ -18,12 +19,18 @@ const corsOptions = {
   optionsSuccessStatus: 200,
 };
 
+app.engine('html', mustache());
+app.set('view engine', 'html');
+app.set('views', __dirname + '/templates');
+app.use(express.static(path.join(__dirname, 'public')));
+
+
 app.use(cors(corsOptions));
 
 // Connect to the Database
 mongoose.connect(
   process.env.MONGODB_URI ||
-    "mongodb+srv://vivek:vivek123@cluster0.lktd0.mongodb.net/myFirstDatabase-dev?retryWrites=true&w=majority"
+    "mongodb://root:rootpassword@localhost:27017"
 );
 mongoose.connection.on("connected", () => {
   console.log("Mongoose is connected!!!!");

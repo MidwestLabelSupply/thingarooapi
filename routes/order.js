@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 
 const verifyToken = require("../AuthCheck");
-const verifyCustomerToken = require("../CustomerAuthCheck");
+const { customerAuthMiddleware }  = require("../CustomerAuthCheck");
 const validMongoDocument = require("../ValidMongoDocument");
 const order = require("../controllers/order");
 
@@ -13,7 +13,7 @@ router.get("/", verifyToken, order.getOrders);
 router.post("/admin", verifyToken, validMongoDocument, order.getOrder);
 router.get(
   "/customer",
-  verifyCustomerToken,
+  customerAuthMiddleware,
   validMongoDocument,
   order.getOrder
 );

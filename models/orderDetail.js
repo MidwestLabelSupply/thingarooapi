@@ -4,26 +4,8 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 const OrderDetailSchema = new Schema(
   {
-    urls: [
-      {
-        url: {
-          type: String,
-          required: true,
-        },
-        customer: {
-          firstName: String,
-          lastName: String,
-          email: String,
-          opted: Boolean
-        },
-        unit: {
-          type: Number,
-          required: true,
-        },
-      }
-    ],
-  },
-  { timestamps: true }
+   templateUnits: Schema.Types.Mixed,
+  }
 );
 
 // Model
