@@ -17,6 +17,13 @@ router.post("/admin", verifyToken, validMongoDocument, orderDetail.getOrderDetai
 
 router.get(
   "/customer/:token",
+  orderDetail.getCustomerOrderDetails
+);
+
+router.get(
+  "/customer",
+  customerAuthMiddleware,
+  validMongoDocument,
   orderDetail.getOrderDetail
 );
 

@@ -31,7 +31,24 @@ async function addOrderDetail(req, res) {
   }
 }
 
+
 async function getOrderDetail(req, res) {
+  try {
+    const { _id, unit } = req.body;
+    const orderDetail = await OrderDetail.findOne({ _id });
+    if (!orderDetail || unit === undefined)
+      return res.status(400).send({ msg: "Order Detail Not Found." });
+
+    const result = orderDetail.urls[unit - 1] || null;
+
+    return res
+      .status(200)
+      .send({ msg: "Order Detail fetched successfully.", orderDetail: result });
+  } catch (err) {
+    return res.status(500).send({ msg: "Internal server error!", err });
+  }
+}
+async function getCustomerOrderDetails(req, res) {
   try {
     const { _id, unit } = await validateUserToken(req.params.token);
     if (!mongoose.isValidObjectId(_id)) return res.status(404).send({ msg: "Not found :( !" });
@@ -110,4 +127,5 @@ module.exports = {
   getOrderDetails,
   addOrderDetail,
   updateOrderDetail,
+  getCustomerOrderDetails
 };
