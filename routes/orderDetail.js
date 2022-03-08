@@ -2,14 +2,14 @@ const express = require("express");
 const router = express.Router();
 
 const verifyToken = require("../AuthCheck");
-const { verifyCustomerTokenMiddleware } = require("../CustomerAuthCheck");
+const { customerAuthMiddleware } = require("../CustomerAuthCheck");
 const validMongoDocument = require("../ValidMongoDocument");
 const orderDetail = require("../controllers/orderDetail");
 
 /* Not working the function doesnt exist? */
 // router.post("/generate-url", verifyToken, validMongoDocument, orderDetail.generateUrls);
 
-router.post("/add", verifyCustomerTokenMiddleware, validMongoDocument, orderDetail.addOrderDetail);
+router.post("/add", customerAuthMiddleware, validMongoDocument, orderDetail.addOrderDetail);
 
 router.post("/", verifyToken, validMongoDocument, orderDetail.getOrderDetails);
 

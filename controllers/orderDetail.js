@@ -17,7 +17,7 @@ async function addOrderDetail(req, res) {
     processHistory.addNote(content, imageUrl, dateTime);
 
     orderDetail.templateUnits[unit - 1] = processHistory;
-    orderDetail.markModified('templateUnits');  // to let mongo know this has changed, as mongo doesn't detech by default.
+    orderDetail.markModified('templateUnits');  // to let mongo know this has changed, as mongo doesn't detect by default.
 
     const updatedOrderDetail = await orderDetail.save();
 

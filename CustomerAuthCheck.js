@@ -13,7 +13,7 @@ const validateUserToken = (token) => {
 }
 
 
-function verifyCustomerTokenMiddleware(req, res, next) {
+function customerAuthMiddleware(req, res, next) {
   const [bearer, customerToken] = req.headers.authorization
     ? req.headers.authorization.split(" ")
     : [];
@@ -36,4 +36,4 @@ function verifyCustomerTokenMiddleware(req, res, next) {
 
 }
 
-module.exports = { verifyCustomerTokenMiddleware, validateUserToken } ;
+module.exports = { customerAuthMiddleware, validateUserToken } ;
