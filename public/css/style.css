@@ -63,11 +63,15 @@ body {
 }
 
 .note-date-time {
+  padding-top: 10px;
   font-size: .8rem;
 }
 
 .note-wrapper {
   background: white;
-  padding: 5px 0;
   border-top: 1px solid lightgray;
+}
+
+.note {
+  border-bottom: 0.5px dashed lightgray;
 }
