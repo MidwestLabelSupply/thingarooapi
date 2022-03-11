@@ -15,46 +15,45 @@
   <title>{{productName}} - History</title>
 </head>
 <body>
-  <div class="container-fluid">
+  <div class="container-fluid thingaroo-gradient">
     <a href="https://www.thingaroo.com/">
-      <div class="mt-1 mb-1">
+      <div class="mb-1">
         <img src="https://www.thingaroo.com/logo.png"/>
       </div>
     </a>
+    
     <div>
-      <div>
-        <div class="m-2 d-flex flex-column align-items-center justify-content-center">
-          <div class="product-title-wrapper">
-            <div class="product-title font-weight-bold">How it works</div>
-            <!-- <div class="unit font-weight-light text-muted">Unit #{{unitNumber}}</div> -->
+      <div class="m-2 d-flex flex-column align-items-center justify-content-center">
+        <div class="product-title-wrapper">
+          <div class="product-title font-weight-bold">How it works</div>
+          <!-- <div class="unit font-weight-light text-muted">Unit #{{unitNumber}}</div> -->
+        </div>
+        <img class="img-thumbnail" src="https://www.thingaroo.com/story.png" width="80%"/>
+      </div>
+    </div>
+    <div class="text-center history-title">
+      Story:
+    </div>
+    <div>
+      <div class="row note-wrapper">
+        {{#notes}}
+          <div class="text-muted note-date-time">
+            {{date}}
           </div>
-          <img class="img-thumbnail" src="https://www.thingaroo.com/story.png" width="80%"/>
-        </div>
+          <div class="note">
+            {{content}}
+          </div>
+        {{/notes}}
+        {{^notes}}
+          <div class="text-center">
+            <i>Leave a note to get started</i>
+          </div>
+        {{/notes}}
       </div>
-      <div class="mt-2">
-        <div class="text-center history-title">
-          Story:
-        </div>
-        <div class="row note-wrapper">
-          {{#notes}}
-            <div class="text-muted note-date-time">
-              {{date}}
-            </div>
-            <div class="note">
-              {{content}}
-            </div>
-          {{/notes}}
-          {{^notes}}
-            <div class="text-center">
-              <i>Leave a note to get started</i>
-            </div>
-          {{/notes}}
-        </div>
-        <div class="row block"></div>
-      </div>
-      <div class="rounded history-buttom" onclick="addNoteAction()">
-        <span class="text">Add note</span>
-      </div>
+      <div class="row block"></div>
+    </div>
+    <div class="history-buttom" onclick="addNoteAction()">
+      <span class="text">Leave Note</span>
     </div>
   </div>
 
